@@ -2,12 +2,13 @@
 // Licensed under the MIT License.
 #pragma once
 #include "Command.h"
+#include <winget/UserSettings.h>
 
 namespace AppInstaller::CLI
 {
-    struct SourceCommand final : public Command
+    struct PinCommand final : public Command
     {
-        SourceCommand(std::string_view parent) : Command("source", parent) {}
+        PinCommand(std::string_view parent) : Command("pin", {} /* aliases */, parent, Settings::ExperimentalFeature::Feature::Pinning) {}
 
         std::vector<std::unique_ptr<Command>> GetCommands() const override;
 
@@ -20,24 +21,9 @@ namespace AppInstaller::CLI
         void ExecuteInternal(Execution::Context& context) const override;
     };
 
-    struct SourceAddCommand final : public Command
+    struct PinAddCommand final : public Command
     {
-        SourceAddCommand(std::string_view parent) : Command("add", {}, parent, Settings::TogglePolicy::Policy::AllowedSources) {}
-
-        std::vector<Argument> GetArguments() const override;
-
-        Resource::LocString ShortDescription() const override;
-        Resource::LocString LongDescription() const override;
-
-        std::string HelpLink() const override;
-
-    protected:
-        void ExecuteInternal(Execution::Context& context) const override;
-    };
-
-    struct SourceListCommand final : public Command
-    {
-        SourceListCommand(std::string_view parent) : Command("list", { "ls" }, parent) {}
+        PinAddCommand(std::string_view parent) : Command("add", parent) {}
 
         std::vector<Argument> GetArguments() const override;
 
@@ -52,9 +38,9 @@ namespace AppInstaller::CLI
         void ExecuteInternal(Execution::Context& context) const override;
     };
 
-    struct SourceUpdateCommand final : public Command
+    struct PinRemoveCommand final : public Command
     {
-        SourceUpdateCommand(std::string_view parent) : Command("update", { "refresh" }, parent) {}
+        PinRemoveCommand(std::string_view parent) : Command("remove", parent) {}
 
         std::vector<Argument> GetArguments() const override;
 
@@ -69,10 +55,9 @@ namespace AppInstaller::CLI
         void ExecuteInternal(Execution::Context& context) const override;
     };
 
-    struct SourceRemoveCommand final : public Command
+    struct PinListCommand final : public Command
     {
-        // We can remove user or default sources, so this is not gated by any single policy.
-        SourceRemoveCommand(std::string_view parent) : Command("remove", { "rm" }, parent) {}
+        PinListCommand(std::string_view parent) : Command("list", parent) {}
 
         std::vector<Argument> GetArguments() const override;
 
@@ -87,26 +72,9 @@ namespace AppInstaller::CLI
         void ExecuteInternal(Execution::Context& context) const override;
     };
 
-    struct SourceResetCommand final : public Command
+    struct PinResetCommand final : public Command
     {
-        SourceResetCommand(std::string_view parent) : Command("reset", parent) {}
-
-        std::vector<Argument> GetArguments() const override;
-
-        Resource::LocString ShortDescription() const override;
-        Resource::LocString LongDescription() const override;
-
-        void Complete(Execution::Context& context, Execution::Args::Type valueType) const override;
-
-        std::string HelpLink() const override;
-
-    protected:
-        void ExecuteInternal(Execution::Context& context) const override;
-    };
-
-    struct SourceExportCommand final : public Command
-    {
-        SourceExportCommand(std::string_view parent) : Command("export", parent) {}
+        PinResetCommand(std::string_view parent) : Command("reset", parent) {}
 
         std::vector<Argument> GetArguments() const override;
 
