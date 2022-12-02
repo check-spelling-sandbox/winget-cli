@@ -1358,8 +1358,7 @@ Please specify one of them using the --source option to proceed.</value>
     <value>Portable install failed; Cleaning up...</value>
   </data>
   <data name="BothPurgeAndPreserveFlagsProvided" xml:space="preserve">
-    <value>Both '--purge' and '--preserve' arguments are provided</value>
-    <comment>{Locked="--purge"} {Locked="--preserve"}</comment>
+    <value>Both `purge` and `preserve` arguments are provided</value>
   </data>
   <data name="PortableHashMismatchOverridden" xml:space="preserve">
     <value>Portable package has been modified; proceeding due to --force</value>
