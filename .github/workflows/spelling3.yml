@@ -72,6 +72,9 @@ on:
       - "opened"
       - "reopened"
       - "synchronize"
+  issue_comment:
+    types:
+      - "created"
 
 jobs:
   spelling:
@@ -99,6 +102,7 @@ jobs:
           post_comment: 0
           use_magic_file: 1
           warnings: bad-regex,binary-file,deprecated-feature,ignored-expect-variant,large-file,limited-references,no-newline-at-eof,noisy-file,non-alpha-in-dictionary,token-is-substring,unexpected-line-ending,whitespace-in-dictionary,minified-file,unsupported-configuration,no-files-to-check
+          experimental_apply_changes_via_bot: ${{ github.repository_owner != 'microsoft' && 1 }}
           extra_dictionary_limit: 10
           extra_dictionaries: |
             cspell:cpp/src/compiler-msvc.txt
